@@ -1,0 +1,415 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Trifusion Technologies</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0f2c, #007bff);
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.8rem;
+      color: #000;
+      text-shadow: 1px 1px 3px rgba(255,255,255,0.3);
+    }
+
+    p {
+      color: #111;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin: 25px 0 60px;
+    }
+
+    .catalog-button {
+      background: #fff;
+      color: #007bff;
+      font-size: 1.2rem;
+      padding: 15px 40px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: 0.3s;
+    }
+
+    .catalog-button:hover {
+      background: #007bff;
+      color: #fff;
+      transform: translateY(-5px);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+
+    footer a {
+      color: #00c3ff;
+      text-decoration: none;
+    }
+
+    /* Botón IA flotante */
+    .ai-toggle-btn {
+      position: fixed;
+      bottom: 95px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      background: #00c3ff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.45);
+      transition: 0.3s;
+    }
+    .ai-toggle-btn:hover {
+      transform: scale(1.08);
+    }
+    .ai-toggle-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2px;
+    }
+
+    /* Chat IA */
+    .chat-widget {
+      position: fixed;
+      bottom: 160px;
+      right: 25px;
+      width: 300px;
+      background: rgba(0, 8, 30, 0.95);
+      border-radius: 14px;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 980;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+    }
+
+    .chat-header {
+      background: #007bff;
+      padding: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .chat-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 3px;
+    }
+
+    .chat-body {
+      padding: 10px;
+      height: 260px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+    }
+
+    .message {
+      margin-bottom: 14px;
+      display: flex;
+    }
+
+    .message.bot .bubble {
+      background: rgba(0,123,255,0.18);
+      color: #f5f5f5;
+      padding: 10px 12px;
+      border-radius: 10px;
+      max-width: 85%;
+      text-align: left;
+      line-height: 1.5;
+      border-left: 3px solid #007bff;
+    }
+
+    .message.user .bubble {
+      background: #007bff;
+      color: white;
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-left: auto;
+      max-width: 85%;
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .chat-input-area {
+      display: flex;
+      gap: 5px;
+      padding: 8px;
+      background: rgba(10,15,40,0.97);
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 7px;
+      border-radius: 7px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,20,0.7);
+      color: white;
+      font-size: 0.85rem;
+    }
+
+    .chat-input-area button {
+      padding: 7px 12px;
+      background: #00c3ff;
+      color: #003047;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* WhatsApp flotante */
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      color: white;
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      z-index: 900;
+    }
+
+    .typing {
+      font-style: italic;
+      opacity: 0.8;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+    }
+
+    .whatsapp-button-inline {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #25D366;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Catálogo de Trifusion Technologies</h1>
+<p>Explora nuestras categorías tecnológicas.</p>
+<p>Para cualquier pregunta general de nuestros productos utiliza nuestro asistente de IA.</p>
+
+<div class="button-container">
+  <a href="https://docs.google.com/spreadsheets/d/1rl15lecq23hYfE9z0Q-Vyi7kOR8CI9dl/edit" class="catalog-button">🖨️ Impresoras</a>
+  <a href="https://docs.google.com/spreadsheets/d/1dJ6IGB75oVPaWcWrQjzwjrCeZEmXwlw7/edit" class="catalog-button">🖥️ Monitores</a>
+  <a href="https://docs.google.com/spreadsheets/d/1bnyTbEHd170zPEDs9UexYEvLylR5h4n7/edit" class="catalog-button">🔋 UPS</a>
+</div>
+
+<footer>
+  Síguenos en <a href="https://www.instagram.com/trifusiontechnologies">@trifusiontechnologies</a> |
+  📞 WhatsApp: <a href="https://wa.me/18298725163">+1 (829) 872-5163</a>
+</footer>
+
+<!-- Botón IA (usa avatar.png) -->
+<div class="ai-toggle-btn" id="aiToggle">
+  <img src="avatar.png" alt="Asistente IA" class="ai-toggle-icon">
+</div>
+
+<!-- CHAT IA -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-header">
+    <img src="avatar.png" class="chat-avatar" alt="Soporte">
+    Servicio al Cliente
+  </div>
+
+  <div class="chat-body" id="chatBody">
+    <div class="message bot">
+      <div class="bubble">
+        <strong>¡Hola! Soy el asistente virtual de Trifusion Technologies.</strong><br><br>
+        Puedo ayudarte con:<br>
+        • Recomendaciones de monitores, impresoras, UPS y otros equipos.<br>
+        • Dudas sobre garantías y uso de productos.<br>
+        • Preguntas generales de tecnología y temas relacionados.<br><br>
+        Escríbeme tu consulta y con gusto te ayudo.
+      </div>
+    </div>
+  </div>
+
+  <form class="chat-input-area" id="chatForm">
+    <input type="text" id="chatInput" placeholder="Escribe aquí..." required>
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/18298725163" class="whatsapp-btn" aria-label="Abrir WhatsApp">💬</a>
+
+<script>
+const aiToggle = document.getElementById("aiToggle");
+const chatWidget = document.getElementById("chatWidget");
+const chatBody = document.getElementById("chatBody");
+const chatForm = document.getElementById("chatForm");
+const chatInput = document.getElementById("chatInput");
+
+// URL de tu Worker (ya configurado)
+const WORKER_URL = "https://proyecto.josegonzalo071.workers.dev/";
+
+// Mostrar / ocultar chat
+aiToggle.addEventListener("click", () => {
+  chatWidget.style.display = chatWidget.style.display === "flex" ? "none" : "flex";
+});
+
+// Render básico tipo Markdown (negrita, cursiva, saltos de línea, listas)
+function formatReply(raw) {
+  if (!raw) return "";
+
+  // Escapar HTML básico
+  let text = raw
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  // Negritas **texto**
+  text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  // Cursivas *texto*
+  text = text.replace(/\*(.+?)\*/g, "<em>$1</em>");
+
+  // Listas con "- " o "• "
+  text = text.replace(/(?:^|\n)[\-•]\s*(.+)/g, (match, item) => {
+    return `<br>&nbsp;&nbsp;• ${item}`;
+  });
+
+  // Doble salto de línea = separación de párrafos
+  text = text.replace(/\n{2,}/g, "<br><br>");
+  // Saltos simples
+  text = text.replace(/\n/g, "<br>");
+
+  return text;
+}
+
+function addMessage(from, htmlText) {
+  const msg = document.createElement("div");
+  msg.className = "message " + from;
+  msg.innerHTML = `<div class="bubble">${htmlText}</div>`;
+  chatBody.appendChild(msg);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showTyping() {
+  const t = document.createElement("div");
+  t.id = "typing-indicator";
+  t.className = "typing";
+  t.textContent = "Servicio al Cliente está escribiendo...";
+  chatBody.appendChild(t);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function hideTyping() {
+  const t = document.getElementById("typing-indicator");
+  if (t) t.remove();
+}
+
+chatForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const text = chatInput.value.trim();
+  if (!text) return;
+  chatInput.value = "";
+
+  addMessage("user", formatReply(text));
+  showTyping();
+
+  try {
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+
+    const data = await res.json();
+    hideTyping();
+
+    let reply = data.reply || "No recibí respuesta.";
+
+    // Formatear respuesta
+    let replyHtml = formatReply(reply);
+
+    // Botón de WhatsApp automático si menciona "whatsapp"
+    if (reply.toLowerCase().includes("whatsapp")) {
+      replyHtml += `<br><a class="whatsapp-button-inline" href="https://wa.me/18298725163" target="_blank">Contactar por WhatsApp</a>`;
+    }
+
+    addMessage("bot", replyHtml);
+
+  } catch (err) {
+    console.error(err);
+    hideTyping();
+    addMessage("bot", "Hubo un error al conectar con la IA. Verifica la configuración del servicio.");
+  }
+});
+</script>
+
+
+<!-- BOTÓN COTIZAR PRODUCTO -->
+<a href="https://optimoelectronics2-droid.github.io/cotizacion/" 
+   class="cotizar-btn" 
+   target="_blank">📄 Cotizar producto</a>
+
+<style>
+  .cotizar-btn {
+    display: block;
+    width: 260px;
+    margin: 40px auto;
+    padding: 15px 25px;
+    background: #ffcc00;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: 0.3s;
+  }
+  .cotizar-btn:hover {
+    background: #ffdb4d;
+    transform: translateY(-4px);
+  }
+</style>
+
+</body>
+</html>
